@@ -34,7 +34,7 @@ function App() {
 		team: 0,
 	})
 	const [showPlayerCard, setShowPlayerCard] = useState(false)
-	const [showOverlay, setShowOverlay] = useState(false)
+	const [showOverlay, setShowOverlay] = useState(true)
 	const [isReplay, setIsReplay] = useState(false)
 	const [isGameOver, setIsGameOver] = useState(false)
 	const [timer, setTimer] = useState(0)
