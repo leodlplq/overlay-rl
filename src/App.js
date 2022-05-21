@@ -6,6 +6,7 @@ import PlayerCard from './components/PlayerCard'
 import TinyPlayerCard from './components/TinyPlayerCard'
 import Goal from './components/Goal'
 import Boost from './components/Boost'
+import GameRecap from './components/GameRecap'
 
 function App() {
 	const [teamOne, setTeamOne] = useState({
@@ -33,7 +34,9 @@ function App() {
 		team: 0,
 	})
 	const [showPlayerCard, setShowPlayerCard] = useState(false)
+	const [showOverlay, setShowOverlay] = useState(false)
 	const [isReplay, setIsReplay] = useState(false)
+	const [isGameOver, setIsGameOver] = useState(false)
 	const [timer, setTimer] = useState(0)
 	const [goal, setGoal] = useState(0)
 	const [scorer, setScorer] = useState({
@@ -72,30 +75,34 @@ function App() {
 			if (jEvent.event === 'game:initialized') {
 				console.log('init')
 				console.log(jEvent)
+				setShowOverlay(() => true)
+				setIsGameOver(() => false)
 			}
 
 			if (jEvent.event === 'game:update_state') {
 				// console.log(jEvent.data)
-				setTeamOne((prevTeamOne) => {
-					return {
-						...prevTeamOne,
-						name: jEvent.data.game.teams[0].name,
-						score: jEvent.data.game.teams[0].score,
-						players: Object.values(jEvent.data.players).filter(
-							(a) => a.team === 0
-						),
-					}
-				})
-				setTeamTwo((prevTeamTwo) => {
-					return {
-						...prevTeamTwo,
-						name: jEvent.data.game.teams[1].name,
-						score: jEvent.data.game.teams[1].score,
-						players: Object.values(jEvent.data.players).filter(
-							(a) => a.team === 1
-						),
-					}
-				})
+				if (Object.keys(jEvent.data.players).length !== 0) {
+					setTeamOne((prevTeamOne) => {
+						return {
+							...prevTeamOne,
+							name: jEvent.data.game.teams[0].name,
+							score: jEvent.data.game.teams[0].score,
+							players: Object.values(jEvent.data.players).filter(
+								(a) => a.team === 0
+							),
+						}
+					})
+					setTeamTwo((prevTeamTwo) => {
+						return {
+							...prevTeamTwo,
+							name: jEvent.data.game.teams[1].name,
+							score: jEvent.data.game.teams[1].score,
+							players: Object.values(jEvent.data.players).filter(
+								(a) => a.team === 1
+							),
+						}
+					})
+				}
 
 				if (jEvent.data.game.target !== '') {
 					setShowPlayerCard(() => true)
@@ -127,6 +134,11 @@ function App() {
 
 			if (jEvent.event === 'game:match_ended') {
 				setIsReplay(() => false)
+				setShowOverlay(() => false)
+				setTimeout(() => {
+					setIsGameOver(() => true)
+				}, 7000)
+
 				if (jEvent.data.winner_team_num === 0) {
 					setTeamOne((prevTeamOne) => {
 						return {
@@ -144,6 +156,8 @@ function App() {
 				}
 			}
 
+			if (jEvent.event === 'game:round_started_go') {
+			}
 			if (jEvent.event === 'game:goal_scored') {
 				console.log('BUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUT 2')
 				setGoal((prevGoal) => prevGoal + 1)
@@ -177,18 +191,20 @@ function App() {
 
 	return (
 		<div className="overlay-match">
-			<Scoreboard
-				teamOne={teamOne}
-				teamTwo={teamTwo}
-				timer={timer}
-				title={title}
-				type={type}
-			/>
+			{showOverlay ? (
+				<Scoreboard
+					teamOne={teamOne}
+					teamTwo={teamTwo}
+					timer={timer}
+					title={title}
+					type={type}
+				/>
+			) : (
+				''
+			)}
 			{showPlayerCard ? <PlayerCard currentPlayer={currentPlayer} /> : ''}
 
-			{isReplay ? (
-				''
-			) : (
+			{!isReplay && showOverlay ? (
 				<div className="tiny-cards team-one-tiny-cards">
 					{teamOne.players.map((player) => {
 						return (
@@ -201,11 +217,11 @@ function App() {
 						)
 					})}
 				</div>
+			) : (
+				''
 			)}
 
-			{isReplay ? (
-				''
-			) : (
+			{!isReplay && showOverlay ? (
 				<div className="tiny-cards team-two-tiny-cards">
 					{teamTwo.players.map((player) => {
 						return (
@@ -218,11 +234,24 @@ function App() {
 						)
 					})}
 				</div>
+			) : (
+				''
 			)}
 
 			{showPlayerCard ? <PlayerCard currentPlayer={currentPlayer} /> : ''}
 			{showPlayerCard ? <Boost currentPlayer={currentPlayer} /> : ''}
 			{isReplay ? <Goal goal={goal} scorer={scorer} /> : ''}
+			{isGameOver ? (
+				<GameRecap
+					teamOne={teamOne}
+					teamTwo={teamTwo}
+					timer="0"
+					title={title}
+					type={type}
+				/>
+			) : (
+				''
+			)}
 		</div>
 	)
 }
