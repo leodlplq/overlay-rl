@@ -35,9 +35,9 @@ export default function Scoreboard(props) {
 			<div className="timer">
 				<span>{convertTime(props.timer)}</span>
 				<div className="match-infos">
-					<span>{props.title}</span>
+					<span>{props.title || ''}</span>
 					<span>|</span>
-					<span>BO{props.type}</span>
+					<span>BO{props.type || ''}</span>
 				</div>
 			</div>
 			<div className="team-two">
