@@ -6,6 +6,7 @@ import PlayerCard from './PlayerCard'
 import TinyPlayerCard from './TinyPlayerCard'
 import Goal from './Goal'
 import Boost from './Boost'
+import GameRecap from './GameRecap'
 
 export default function FlatDesignOverlay() {
 	const [teamOne, setTeamOne] = useState({
@@ -33,7 +34,9 @@ export default function FlatDesignOverlay() {
 		team: 0,
 	})
 	const [showPlayerCard, setShowPlayerCard] = useState(false)
+	const [showOverlay, setShowOverlay] = useState(true)
 	const [isReplay, setIsReplay] = useState(false)
+	const [isGameOver, setIsGameOver] = useState(true)
 	const [timer, setTimer] = useState(0)
 	const [goal, setGoal] = useState(0)
 	const [scorer, setScorer] = useState({
@@ -47,15 +50,12 @@ export default function FlatDesignOverlay() {
 		ballSpeed: 0,
 		team: 0,
 	})
-
 	const params = new Proxy(new URLSearchParams(window.location.search), {
 		get: (searchParams, prop) => searchParams.get(prop),
 	})
 	// Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-
 	const title = params.title
 	const type = params.type
-
 	useEffect(() => {
 		const ws = new WebSocket('ws://localhost:49122')
 		ws.onopen = () => {
@@ -65,38 +65,39 @@ export default function FlatDesignOverlay() {
 			console.log(`WebSocket error:`)
 			console.log(error)
 		}
-
 		ws.onmessage = (e) => {
 			let jEvent = JSON.parse(e.data)
 			console.log(jEvent)
 			if (jEvent.event === 'game:initialized') {
 				console.log('init')
 				console.log(jEvent)
+				setShowOverlay(() => true)
+				setIsGameOver(() => false)
 			}
-
 			if (jEvent.event === 'game:update_state') {
 				// console.log(jEvent.data)
-				setTeamOne((prevTeamOne) => {
-					return {
-						...prevTeamOne,
-						name: jEvent.data.game.teams[0].name,
-						score: jEvent.data.game.teams[0].score,
-						players: Object.values(jEvent.data.players).filter(
-							(a) => a.team === 0
-						),
-					}
-				})
-				setTeamTwo((prevTeamTwo) => {
-					return {
-						...prevTeamTwo,
-						name: jEvent.data.game.teams[1].name,
-						score: jEvent.data.game.teams[1].score,
-						players: Object.values(jEvent.data.players).filter(
-							(a) => a.team === 1
-						),
-					}
-				})
-
+				if (Object.keys(jEvent.data.players).length !== 0) {
+					setTeamOne((prevTeamOne) => {
+						return {
+							...prevTeamOne,
+							name: jEvent.data.game.teams[0].name,
+							score: jEvent.data.game.teams[0].score,
+							players: Object.values(jEvent.data.players).filter(
+								(a) => a.team === 0
+							),
+						}
+					})
+					setTeamTwo((prevTeamTwo) => {
+						return {
+							...prevTeamTwo,
+							name: jEvent.data.game.teams[1].name,
+							score: jEvent.data.game.teams[1].score,
+							players: Object.values(jEvent.data.players).filter(
+								(a) => a.team === 1
+							),
+						}
+					})
+				}
 				if (jEvent.data.game.target !== '') {
 					setShowPlayerCard(() => true)
 					setCurrentPlayer(() => {
@@ -119,14 +120,15 @@ export default function FlatDesignOverlay() {
 				} else {
 					setShowPlayerCard(() => false)
 				}
-
 				// console.log(teamOne.players)
-
 				setTimer(() => jEvent.data.game.time_seconds)
 			}
-
 			if (jEvent.event === 'game:match_ended') {
 				setIsReplay(() => false)
+				setShowOverlay(() => false)
+				setTimeout(() => {
+					setIsGameOver(() => true)
+				}, 7000)
 				if (jEvent.data.winner_team_num === 0) {
 					setTeamOne((prevTeamOne) => {
 						return {
@@ -143,7 +145,8 @@ export default function FlatDesignOverlay() {
 					})
 				}
 			}
-
+			if (jEvent.event === 'game:round_started_go') {
+			}
 			if (jEvent.event === 'game:goal_scored') {
 				console.log('BUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUT 2')
 				setGoal((prevGoal) => prevGoal + 1)
@@ -162,7 +165,6 @@ export default function FlatDesignOverlay() {
 				})
 				setIsReplay(() => true)
 			}
-
 			if (jEvent.event === 'game:replay_start') {
 				setIsReplay(() => true)
 			}
@@ -174,21 +176,21 @@ export default function FlatDesignOverlay() {
 			ws.close()
 		}
 	}, [])
-
 	return (
 		<div className="overlay-match">
-			<Scoreboard
-				teamOne={teamOne}
-				teamTwo={teamTwo}
-				timer={timer}
-				title={title}
-				type={type}
-			/>
-			{showPlayerCard ? <PlayerCard currentPlayer={currentPlayer} /> : ''}
-
-			{isReplay ? (
-				''
+			{showOverlay ? (
+				<Scoreboard
+					teamOne={teamOne}
+					teamTwo={teamTwo}
+					timer={timer}
+					title={title}
+					type={type}
+				/>
 			) : (
+				''
+			)}
+			{showPlayerCard ? <PlayerCard currentPlayer={currentPlayer} /> : ''}
+			{!isReplay && showOverlay ? (
 				<div className="tiny-cards team-one-tiny-cards">
 					{teamOne.players.map((player) => {
 						return (
@@ -201,11 +203,10 @@ export default function FlatDesignOverlay() {
 						)
 					})}
 				</div>
-			)}
-
-			{isReplay ? (
-				''
 			) : (
+				''
+			)}
+			{!isReplay && showOverlay ? (
 				<div className="tiny-cards team-two-tiny-cards">
 					{teamTwo.players.map((player) => {
 						return (
@@ -218,11 +219,23 @@ export default function FlatDesignOverlay() {
 						)
 					})}
 				</div>
+			) : (
+				''
 			)}
-
 			{showPlayerCard ? <PlayerCard currentPlayer={currentPlayer} /> : ''}
 			{showPlayerCard ? <Boost currentPlayer={currentPlayer} /> : ''}
 			{isReplay ? <Goal goal={goal} scorer={scorer} /> : ''}
+			{isGameOver ? (
+				<GameRecap
+					teamOne={teamOne}
+					teamTwo={teamTwo}
+					timer="0"
+					title={title}
+					type={type}
+				/>
+			) : (
+				''
+			)}
 		</div>
 	)
-}
+			}
