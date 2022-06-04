@@ -1,9 +1,9 @@
 import React from 'react'
 import { useLayoutEffect, useRef, useState } from 'react'
-import useDidMountEffect from '../tools/useDidMountEffect'
+import useDidMountEffect from '../../tools/useDidMountEffect'
 import { gsap } from 'gsap'
-import goalIcon from '../assets/images/goal.png'
-import assistIcon from '../assets/images/assist.png'
+import goalIcon from '../../assets/images/goal.png'
+import assistIcon from '../../assets/images/assist.png'
 
 export default function Goal(props) {
 	const el = useRef()

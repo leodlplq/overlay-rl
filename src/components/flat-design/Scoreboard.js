@@ -1,5 +1,5 @@
 import React from 'react'
-import { convertTime } from '../tools/timer'
+import { convertTime } from '../../tools/timer'
 
 export default function Scoreboard(props) {
 	const pointToWin = (parseInt(props.type) + 1) / 2
