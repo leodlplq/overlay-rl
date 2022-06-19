@@ -36,7 +36,7 @@ export default function FlatDesignOverlay() {
 	const [showPlayerCard, setShowPlayerCard] = useState(false)
 	const [showOverlay, setShowOverlay] = useState(true)
 	const [isReplay, setIsReplay] = useState(false)
-	const [isGameOver, setIsGameOver] = useState(true)
+	const [isGameOver, setIsGameOver] = useState(false)
 	const [timer, setTimer] = useState(0)
 	const [goal, setGoal] = useState(0)
 	const [scorer, setScorer] = useState({
@@ -238,4 +238,4 @@ export default function FlatDesignOverlay() {
 			)}
 		</div>
 	)
-			}
+}

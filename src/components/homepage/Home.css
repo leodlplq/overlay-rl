@@ -1,7 +1,241 @@
-main{
-    min-height: 100vh;
-    width: 100%;
-    background-color: rgb(3, 45, 80);
-    color: white;
-    font-family: Roboto;
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--bg-color: #070707;
+	--color: #fff;
+	--container: 80%;
+	--purple: #8024f5;
+	--pink: #e83294;
+}
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700;900&display=swap');
+
+.blurred {
+	filter: blur(250px);
+}
+
+/* BTN STYLE */
+.btn {
+	padding: 1rem 5rem;
+	text-decoration: none;
+	color: white;
+	font-weight: 900;
+	font-size: 1.5rem;
+	display: inline-block;
+	margin-top: 50px;
+}
+
+.glass {
+	background: rgba(217, 217, 217, 0.09);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	box-shadow: inset 42.2667px -42.2667px 42.2667px rgba(165, 165, 165, 0.09),
+		inset -42.2667px 42.2667px 42.2667px rgba(255, 255, 255, 0.09);
+	backdrop-filter: blur(40px);
+	/* Note: backdrop-filter has minimal browser support */
+	border-radius: 10px;
+}
+
+.text-gradient {
+	background: linear-gradient(
+		89.89deg,
+		var(--purple) 18.49%,
+		var(--pink) 94.93%
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+}
+
+main {
+	min-height: 100vh;
+	width: 100%;
+	height: 100%;
+	background-color: var(--bg-color);
+	color: var(--color);
+	font-family: Fira Sans;
+	overflow: hidden;
+	position: relative;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: var(--container);
+	margin: 0 auto;
+	padding: 66px 0;
+}
+
+.header-logo {
+	width: 200px;
+}
+
+.header-logo > img {
+	width: 100%;
+}
+
+.header-links {
+	display: flex;
+	gap: 75px;
+}
+
+.header-links > a {
+	color: var(--color);
+	text-decoration: none;
+	font-size: 0.9rem;
+}
+
+.banner,
+.second-banner {
+	margin: 0px auto;
+	width: var(--container);
+	position: relative;
+}
+
+.second-banner {
+	margin: 130px auto;
+}
+
+.banner > .img {
+	width: 100%;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%);
+	z-index: 0;
+}
+
+.inner-banner {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	width: 100%;
+	/* transform: translateX(7%); */
+	align-items: center;
+	justify-items: center;
+}
+
+/* .second-inner-banner {
+	transform: none !important;
+	background-color: #e83294;
+	align-items: center;
+	justify-items: center;
+} */
+
+.inner-banner > .left {
+	display: flex;
+	flex-direction: column;
+	align-items: baseline;
+	justify-content: center;
+}
+
+.inner-banner h1 {
+	font-weight: 500;
+	font-size: 3rem;
+}
+
+.inner-banner h1 span {
+	font-weight: 900;
+}
+
+.image-top {
+	position: relative;
+	z-index: 999;
+}
+
+.octane {
+	width: 110%;
+	transform: translateX(-10%);
+}
+
+/*TESTIMONIALS PART*/
+
+.testimonials {
+	width: var(--container);
+	margin: 0 auto;
+	position: relative;
+}
+
+.title {
+	font-size: 3.5rem;
+	position: relative;
+	z-index: 2;
+}
+
+.slider-custom {
+	margin: 50px 0;
+	position: relative;
+	z-index: 2;
+}
+
+.card {
+	padding: 25px;
+	width: 80%;
+	height: 500px;
+	margin: 0 auto;
+}
+
+.card > img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.bottom-card {
+	position: absolute;
+	left: 20px;
+	bottom: 20px;
+	color: #afafaf;
+	display: flex;
+	flex-direction: column;
+}
+
+.name-partner {
+	font-size: 1rem;
+}
+
+.status-partner {
+	font-size: 0.6rem;
+}
+
+.testimonials > .img {
+	position: absolute;
+	right: 0;
+	top: 90%;
+}
+
+/* BOTTOM BANNER */
+
+.bot-banner {
+	height: 80vh;
+	width: var(--container);
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+footer {
+	width: calc(100% - 40px);
+	padding: 50px;
+	min-height: 100px;
+	margin: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: baseline;
+	align-items: baseline;
+	gap: 70px;
+	position: relative;
+	z-index: 2;
+}
+
+.bg3 {
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
