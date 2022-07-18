@@ -1,0 +1,628 @@
+@font-face {
+	font-family: 'Quicksilver Italic';
+	src: url('../../assets/fonts/Quicksilver\ Italic.otf') format('opentype');
+	/* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+}
+
+@font-face {
+	font-family: 'Quicksilver';
+	src: url('../../assets/fonts/Quicksilver.otf') format('opentype');
+	/* other formats include: 'woff2', 'truetype, 'opentype',
+                                'embedded-opentype', and 'svg' */
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.goal-overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: flex;
+}
+
+.transition {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: flex;
+	z-index: 666;
+}
+
+.orange > .stripes {
+	background-color: #ff8b4a;
+}
+
+.title-goal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: white;
+	font-family: 'Quicksilver';
+	font-size: 120px;
+}
+
+.stripes {
+	width: 33.33%;
+	height: 100%;
+	background-color: #2e8eff;
+}
+
+.overlay-match {
+	width: 1920px;
+	height: 1080px;
+	position: relative;
+}
+
+.player-card {
+	width: 500px;
+	font-family: 'Quicksilver Italic', Arial, Helvetica, sans-serif;
+	color: #f8f8f8;
+	border-radius: 10px;
+	overflow: hidden;
+	position: absolute;
+	left: 30px;
+	bottom: 30px;
+}
+
+.player-name {
+	background-color: #2376d7;
+	padding: 10px 20px;
+	margin-top: -5px;
+}
+
+.player-name > span {
+	font-size: 34px;
+}
+
+.player-stats {
+	background-color: #2e8eff;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 20px;
+}
+
+.player-stat {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+}
+
+.player-stat-title {
+	font-size: 16px;
+}
+
+.player-stat-number {
+	font-size: 14px;
+	font-family: 'Quicksilver', Arial, Helvetica, sans-serif;
+}
+
+.orange .player-name {
+	background-color: #e07a40;
+}
+
+.orange .player-stats {
+	background-color: #ff8b4a;
+}
+
+/***********SCOREBOARD************/
+
+.scoreboard {
+	display: flex;
+	height: 60px;
+	position: absolute;
+	left: 50%;
+	top: 20px;
+	transform: translateX(-50%);
+}
+
+.team-one,
+.team-two {
+	height: 100%;
+	display: flex;
+}
+
+.team-two {
+	flex-direction: row-reverse;
+}
+
+.logo {
+	height: 100%;
+	aspect-ratio: 1;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.logo > img {
+	height: 60%;
+}
+
+.team-one .logo {
+	background-color: #2376d7;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.team-one .logo:after {
+	content: '';
+	height: 50%;
+	width: 18px;
+	background-color: #2376d7;
+	left: 100%;
+	bottom: 0;
+	position: absolute;
+	border-top-right-radius: 10px;
+	z-index: 999;
+}
+
+.team-two .logo::before {
+	content: '';
+	height: 50%;
+	width: 18px;
+	background-color: #e07a40;
+	right: 100%;
+	bottom: 0;
+	position: absolute;
+	border-top-left-radius: 10px;
+	z-index: 999;
+}
+
+.team-two .logo {
+	background-color: #e07a40;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.name {
+	width: 335px;
+	height: 100%;
+	font-family: 'Quicksilver';
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24px;
+	position: relative;
+}
+
+.team-one .name {
+	background-color: #2e8eff;
+}
+
+.team-two .name {
+	background-color: #ff8b4a;
+}
+
+.match-point {
+	background-color: #2376d7;
+	height: 15px;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	gap: 7px;
+	padding: 0px 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	position: absolute;
+	top: 100%;
+	right: 0;
+}
+
+.team-two .match-point {
+	flex-direction: row;
+	background-color: #e07a40;
+	right: auto;
+	left: 0;
+}
+
+.match-point > div {
+	width: 25px;
+	height: 5px;
+	border-radius: 50px;
+}
+
+.match-point > div.win {
+	background-color: #21ce90;
+}
+
+.match-point > div.notWin {
+	background-color: #f8f8f8;
+}
+
+.score {
+	background-color: #151515;
+	width: 72px;
+	height: 100%;
+	font-family: 'Quicksilver';
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 40px;
+	position: relative;
+}
+
+.team-one .score:after {
+	content: '';
+	height: 50%;
+	width: 18px;
+	background-color: #151515;
+	left: 100%;
+	bottom: 0;
+	position: absolute;
+	border-top-right-radius: 10px;
+	z-index: 999; /*OVERLAY ON TOP OF TIMER*/
+}
+
+.team-one .score:before {
+	content: '';
+	height: 50%;
+	width: 18px;
+	background-color: #151515;
+	right: 100%;
+	top: 0;
+	position: absolute;
+	border-bottom-left-radius: 10px;
+}
+
+.team-two .score:after {
+	content: '';
+	height: 50%;
+	width: 18px;
+	background-color: #151515;
+	left: 100%;
+	top: 0;
+	position: absolute;
+	border-bottom-right-radius: 10px;
+}
+
+.team-two .score:before {
+	content: '';
+	height: 50%;
+	width: 18px;
+	background-color: #151515;
+	right: 100%;
+	bottom: 0;
+	position: absolute;
+	border-top-left-radius: 10px;
+}
+
+.timer {
+	width: 190px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Quicksilver';
+	font-size: 40px;
+	background-color: #f8f8f8;
+	position: relative;
+}
+
+.match-infos {
+	position: absolute;
+	font-size: 12px;
+	background-color: #151515;
+	width: 100%;
+	height: 25px;
+	top: 100%;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+/**TINY PLAYER CARD*/
+.tiny-cards {
+	position: absolute;
+	top: 200px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.team-one-tiny-cards {
+	left: 20px;
+}
+
+.team-two-tiny-cards {
+	right: 20px;
+}
+
+.tiny-player-card {
+	width: 230px;
+	background-color: #2376d7;
+	color: white;
+	font-family: 'Quicksilver Italic';
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.tiny-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 10px;
+}
+
+.tiny-boost {
+	height: 10px;
+	width: 100%;
+	background-color: #151515;
+	position: relative;
+}
+
+.tiny-boost-filled {
+	background-color: #2e8eff;
+	height: 100%;
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+	transition: width 0.2s ease;
+}
+
+/** ORANGE TINY CARD **/
+
+.orange.tiny-player-card {
+	background-color: #e07a40;
+}
+
+.orange .tiny-top {
+	flex-direction: row-reverse;
+}
+
+.orange .tiny-boost-filled {
+	position: absolute;
+	right: 0;
+	background-color: #ff8b4a;
+	height: 100%;
+	border-radius: 0;
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
+}
+
+/** BOOST **/
+
+.boost {
+	width: 250px;
+	height: 250px;
+	position: absolute;
+	bottom: 20px;
+	right: 100px;
+	font-family: 'Quicksilver';
+	color: white;
+}
+
+.boost-amount {
+	font-size: 50px;
+}
+
+.current-player-speed {
+	font-size: 24px;
+	margin-right: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.current-player-speed > span {
+	font-size: 14px;
+	margin-left: 10px;
+}
+
+/** GOAL REPLAY */
+
+.replay {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-family: 'Quicksilver';
+	color: white;
+	font-size: 24px;
+	position: absolute;
+	top: 50px;
+	left: 50px;
+}
+
+.replay > .light {
+	width: 20px;
+	aspect-ratio: 1;
+	background: #e33a2f;
+	border-radius: 50%;
+	animation: flash 0.7s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes flash {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.goal_stats {
+	display: flex;
+	height: 70px;
+	color: white;
+	font-family: 'Quicksilver Italic';
+	border-top: #2376d7 5px solid;
+	border-radius: 10px;
+	position: absolute;
+	left: 50%;
+	bottom: 50px;
+	transform: translateX(-50%);
+	overflow: hidden;
+}
+
+.ball-sped {
+	height: 100%;
+	background-color: #151515;
+	width: 154px;
+	display: flex;
+	flex-direction: column;
+	padding-left: 20px;
+	justify-content: center;
+}
+
+.speed-title {
+	font-size: 14px;
+}
+
+.speed-value {
+	font-size: 20px;
+}
+
+.scorer,
+.assister {
+	height: 100%;
+	width: 300px;
+	background-color: #2e8eff;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	padding-left: 20px;
+	font-size: 24px;
+}
+
+.orange .scorer,
+.orange .assister {
+	background-color: #ff8b4a;
+}
+
+.orange.goal_stats {
+	border-top: #e07a40 5px solid;
+}
+
+.scorer > img,
+.assister > img {
+	height: 60%;
+}
+
+
+/**GAME RECAP*/
+
+.game-recap {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1000;
+	background-color: #202020;
+	font-family: 'Quicksilver Italic';
+}
+
+.score-grid {
+	width: 100%;
+	height: calc(100% - 200px);
+	position: absolute;
+	bottom: 0;
+	color: white;
+}
+
+.players-name-bar {
+	display: grid;
+	grid-template-columns: 1fr 300px 1fr;
+	height: 60px;
+	font-size: 24px;
+}
+
+.players-names {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.players-name-team-one {
+	background-color: #2e8eff;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.players-name-team-two {
+	background-color: #ff8b4a;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
+.players-recaps {
+	display: grid;
+	grid-template-columns: 1fr 300px 1fr;
+	height: calc(100% - 60px);
+	align-items: center;
+}
+
+.team-recap {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 80%;
+}
+
+.player-recap-list {
+	display: grid;
+	grid-template-rows: repeat(6, 1fr);
+	height: 100%;
+	font-size: 36px;
+	text-align: center;
+	align-items: center;
+	font-family: 'Quicksilver';
+}
+.recaps-names {
+	/* display: flex;
+	flex-direction: column;
+	
+	justify-content: space-evenly;
+	align-items: center;
+	 */
+
+	display: grid;
+	grid-template-rows: repeat(6, 1fr);
+	height: 80%;
+	font-size: 30px;
+	text-align: center;
+	align-items: center;
+}
+
+.recap-name {
+	z-index: 99999;
+	position: relative;
+	display: flex;
+	width: 100%;
+	height: 50px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.recap-team-one {
+	background: #2376d7;
+	height: 100%;
+	width: 50%;
+	transition: width 0.1s ease;
+}
+
+.recap-team-two {
+	background: #e07a40;
+	height: 100%;
+	width: 50%;
+	transition: width 0.1s ease;
+}
+
+.recap-name > span {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}

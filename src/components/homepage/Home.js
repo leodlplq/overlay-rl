@@ -11,21 +11,9 @@ import bg3 from '../../assets/images/bg/bg3.png'
 import octane from '../../assets/images/octane.png'
 import overlay from '../../assets/images/overlay.png'
 
+import { pages } from '../../config/pages'
+
 export default function Home() {
-	const pages = [
-		{
-			name: 'Overlays',
-			link: '/overlays',
-		},
-		{
-			name: 'News',
-			link: '/news',
-		},
-		{
-			name: 'Tutorial',
-			link: '/tutorials',
-		},
-	]
 	return (
 		<main>
 			<Header pages={pages} />
