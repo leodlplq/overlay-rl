@@ -6,12 +6,12 @@ export default function Scoreboard(props) {
 	return (
 		<div className="scoreboard">
 			<div className="team-one">
-				<div className="logo">
+				{/* <div className="logo">
 					<img
 						src="https://upload.wikimedia.org/wikipedia/commons/9/92/Logo_Team_Vitality_2020.png"
 						alt="Logo de la scald"
 					/>
-				</div>
+				</div> */}
 				<div className="name">
 					<span>{props.teamOne.name}</span>
 					<div className="match-point">
@@ -41,12 +41,12 @@ export default function Scoreboard(props) {
 				</div>
 			</div>
 			<div className="team-two">
-				<div className="logo">
+				{/* <div className="logo">
 					<img
 						src="https://upload.wikimedia.org/wikipedia/commons/9/92/Logo_Team_Vitality_2020.png"
 						alt="Logo de la Soolit"
 					/>
-				</div>
+				</div> */}
 				<div className="name">
 					<span>{props.teamTwo.name}</span>
 					<div className="match-point">

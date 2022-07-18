@@ -8,7 +8,7 @@ import Goal from './Goal'
 import Boost from './Boost'
 import GameRecap from './GameRecap'
 
-export default function FlatDesignOverlay() {
+export default function FlatDesignOverlayNoAnim() {
 	const [teamOne, setTeamOne] = useState({
 		name: '',
 		score: 0,
@@ -163,7 +163,6 @@ export default function FlatDesignOverlay() {
 						team: parseInt(jEvent.data.scorer.teamnum),
 					}
 				})
-				setIsReplay(() => true)
 			}
 			if (jEvent.event === 'game:replay_start') {
 				setIsReplay(() => true)

@@ -199,10 +199,14 @@
 
 .team-one .name {
 	background-color: #2e8eff;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
 }
 
 .team-two .name {
 	background-color: #ff8b4a;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
 }
 
 .match-point {
@@ -511,7 +515,6 @@
 .assister > img {
 	height: 60%;
 }
-
 
 /**GAME RECAP*/
 
