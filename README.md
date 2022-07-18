@@ -4,11 +4,11 @@ Ce projet a pour but de fournir des overlays Rocket League “clés en main” a
 
 ## ✅ - TODO
 
-- [ ]  Terminer le premier overlay
+- [x]  Terminer le premier overlay
 - [ ]  Faire le backoffice pour la gestion des logos des équipes
 - [ ]  Faire un site qui permet de voir tous les overlays qui sont disponibles
 - [ ]  Faire un tuto d’installation
-- [ ]  Mettre le service en ligne
+- [x]  Mettre le service en ligne
 
 ## Installer le projet en local
 
