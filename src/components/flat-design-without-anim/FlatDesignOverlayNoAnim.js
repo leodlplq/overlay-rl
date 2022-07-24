@@ -193,7 +193,6 @@ export default function FlatDesignOverlayNoAnim() {
 			) : (
 				''
 			)}
-			{showPlayerCard ? <PlayerCard currentPlayer={currentPlayer} /> : ''}
 			{!isReplay && showOverlay ? (
 				<div className="tiny-cards team-one-tiny-cards">
 					{teamOne.players.map((player) => {
