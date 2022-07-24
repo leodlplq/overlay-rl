@@ -192,16 +192,16 @@ export default function GameRecap(props) {
 							<div
 								className="recap-team-one"
 								style={{
-									width: `${percentageTab['saves'].teamOne}%`,
+									width: `${percentageTab['demos'].teamOne}%`,
 								}}
 							></div>
 							<div
 								className="recap-team-two"
 								style={{
-									width: `${percentageTab['saves'].teamTwo}%`,
+									width: `${percentageTab['demos'].teamTwo}%`,
 								}}
 							></div>
-							<span>SAVES</span>
+							<span>DEMOS</span>
 						</div>
 					</div>
 

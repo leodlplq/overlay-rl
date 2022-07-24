@@ -37,6 +37,7 @@ export default function FlatDesignOverlayNoAnim() {
 	const [showOverlay, setShowOverlay] = useState(true)
 	const [isReplay, setIsReplay] = useState(false)
 	const [isGameOver, setIsGameOver] = useState(false)
+	const [isOT, setIsOT] = useState(false)
 	const [timer, setTimer] = useState(0)
 	const [goal, setGoal] = useState(0)
 	const [scorer, setScorer] = useState({
@@ -76,7 +77,7 @@ export default function FlatDesignOverlayNoAnim() {
 			}
 			if (jEvent.event === 'game:update_state') {
 				// console.log(jEvent.data)
-				if (Object.keys(jEvent.data.players).length !== 0) {
+				if (Object.keys(jEvent.data.players).length !== 0 && !isGameOver) {
 					setTeamOne((prevTeamOne) => {
 						return {
 							...prevTeamOne,
@@ -122,6 +123,9 @@ export default function FlatDesignOverlayNoAnim() {
 				}
 				// console.log(teamOne.players)
 				setTimer(() => jEvent.data.game.time_seconds)
+				if(jEvent.data.game.isOT !== isOT){
+					setIsOT(()=>jEvent.data.game.isOT)
+				}
 			}
 			if (jEvent.event === 'game:match_ended') {
 				setIsReplay(() => false)
@@ -184,6 +188,7 @@ export default function FlatDesignOverlayNoAnim() {
 					timer={timer}
 					title={title}
 					type={type}
+					isOT={isOT}
 				/>
 			) : (
 				''
@@ -221,8 +226,8 @@ export default function FlatDesignOverlayNoAnim() {
 			) : (
 				''
 			)}
-			{showPlayerCard ? <PlayerCard currentPlayer={currentPlayer} /> : ''}
-			{showPlayerCard ? <Boost currentPlayer={currentPlayer} /> : ''}
+			{!isReplay && showPlayerCard ? <PlayerCard currentPlayer={currentPlayer} /> : ''}
+			{!isReplay && showPlayerCard ? <Boost currentPlayer={currentPlayer} /> : ''}
 			{isReplay ? <Goal goal={goal} scorer={scorer} /> : ''}
 			{isGameOver ? (
 				<GameRecap
