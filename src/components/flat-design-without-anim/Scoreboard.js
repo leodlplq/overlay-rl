@@ -33,7 +33,7 @@ export default function Scoreboard(props) {
 				<div className="score">{props.teamOne.score}</div>
 			</div>
 			<div className="timer">
-				<span>{convertTime(props.timer)}</span>
+				<span>{convertTime(props.timer, props.isOT)}</span>
 				<div className="match-infos">
 					<span>{props.title || ''}</span>
 					<span>|</span>

@@ -1,4 +1,4 @@
-export const convertTime = (timer) => {
+export const convertTime = (timer, isOT) => {
 	let mins = parseInt(timer / 60)
 	let secs = Math.ceil(timer % 60)
 	if (secs < 10) {
@@ -9,5 +9,9 @@ export const convertTime = (timer) => {
 		mins++
 	}
 
-	return `${mins}:${secs}`
+	if(isOT) {
+		return `+${mins}:${secs}`
+	} else {
+		return `${mins}:${secs}`
+	}
 }
