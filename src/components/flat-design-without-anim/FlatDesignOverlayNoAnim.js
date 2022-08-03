@@ -72,6 +72,9 @@ export default function FlatDesignOverlayNoAnim() {
 				console.log('init')
 				console.log(jEvent)
 				setShowOverlay(() => true)
+			}
+
+			if (jEvent.event === 'game:pre_countdown_begin') {
 				setIsGameOver(() => false)
 			}
 			if (jEvent.event === 'game:update_state') {
