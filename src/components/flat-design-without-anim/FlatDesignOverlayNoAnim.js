@@ -126,9 +126,8 @@ export default function FlatDesignOverlayNoAnim() {
 				}
 				// console.log(teamOne.players)
 				setTimer(() => jEvent.data.game.time_seconds)
-				if(jEvent.data.game.isOT !== isOT){
-					setIsOT(()=>jEvent.data.game.isOT)
-				}
+
+				setIsOT(()=>jEvent.data.game.isOT)				
 			}
 			if (jEvent.event === 'game:match_ended') {
 				setIsReplay(() => false)
